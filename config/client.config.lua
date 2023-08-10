@@ -9,14 +9,11 @@
 --= You are not allowed to sell this script
 --============================================================ 
 
-CONFIG = {}
-
 CONFIG.UseItem = {                                          -- ใช้งาน Item
     Distance = 20.0                                         -- ระยะห่างสูงสุด ที่สามารถใช้งาน Item ได้
 }
 
 CONFIG.UseKeyboard = {                                      -- ใช้งาน Keyboard
-    ItemName = 'vehicle_key',                               -- ชื่อ Item ของ กุญแจยานพาหนะ
     Distance = 3.0,                                         -- ระยะห่างสูงสุด ที่สามารถใช้งาน Keyboard (ปุ่ม) ได้
 
     RegisterKey = {                                         -- RegisterKeyMapping (https://docs.fivem.net/natives/?_0xD7664FD1)

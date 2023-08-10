@@ -33,7 +33,7 @@ local function vehicleSearch(ped, plate, dist)
             end
         end
     else
-        local items = exports.ox_inventory:Search('slots', CONFIG.UseKeyboard.ItemName)
+        local items = exports.ox_inventory:Search('slots', CONFIG.ItemName)
 
         if type(items) == 'table' and next(items) then
             local pedCoords = GetEntityCoords(ped)

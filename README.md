@@ -20,7 +20,7 @@ git clone https://github.com/Azael-Dev/azael_vehiclekeys [local]/[azael]/[system
 
 ## ติดตั้ง
 
-- สามารถตรวจสอบการกำหนดค่าเพิ่มเติมได้ที่ [client.config.js](https://github.com/Azael-Dev/azael_vehiclekeys/blob/main/client.config.lua)
+- สามารถตรวจสอบการกำหนดค่าเพิ่มเติมได้ที่ [shared.config.lua](https://github.com/Azael-Dev/azael_vehiclekeys/tree/main/configclient.config.lua) และ [client.config.js](https://github.com/Azael-Dev/azael_vehiclekeys/tree/main/config/client.config.lua)
 
 ### server.cfg
 
@@ -49,6 +49,40 @@ ensure azael_vehiclekeys
 },
 ```
 
+## ฟังก์ชันส่งออก (ฝั่งเซิร์ฟเวอร์)
+
+### AddKey
+
+- เพิ่ม กุญแจยานพาหนะ ไปยังกระเป๋าของผู้เล่น
+
+```lua
+exports.azael_vehiclekeys:AddKey(source, plate, description)
+```
+
+#### Parameter
+
+| Name                         | Type               | Required         | Description                                                
+|------------------------------|--------------------|------------------|----------------------------------------------------------------------
+| `source`                     | `number`           | ✔️               | NetID (Player ID) ของผู้เล่น
+| `plate`                      | `string`           | ✔️               | ป้ายทะเบียน ยานพาหนะ
+| `description`                | `string` / `nil`   | ❌               | คำอธิบายเพิ่มเติม
+
+### RemoveKey
+
+- ลบ กุญแจยานพาหนะ ออกจากกระเป๋าของผู้เล่น
+
+```lua
+exports.azael_vehiclekeys:RemoveKey(source, plate, strict)
+```
+
+#### Parameter
+
+| Name                         | Type               | Required         | Description                                                
+|------------------------------|--------------------|------------------|----------------------------------------------------------------------
+| `source`                     | `number`           | ✔️               | NetID (Player ID) ของผู้เล่น
+| `plate`                      | `string`           | ✔️               | ป้ายทะเบียน ยานพาหนะ
+| `strict`                     | `boolean` / `nil`   | ❌              | ตรวจสอบ `plate` ใน `metadata` อย่างเข้มงวด
+
 ## ตัวอย่าง
 
 - อ้างอิงจาก [esx_vehicleshop](https://github.com/esx-framework/esx_vehicleshop) เวอร์ชันล่าสุด
@@ -58,14 +92,12 @@ ensure azael_vehiclekeys
 - ไปที่ `esx_vehicleshop/server/main.lua` ค้นหา `TaskWarpPedIntoVehicle(GetPlayerPed(source), vehicle, -1)` ([#166](https://github.com/esx-framework/esx_vehicleshop/blob/main/server/main.lua#L166)) และวางรหัสด้านล่างนี้ต่อ
 
 ```lua
-pcall(function()
-    local vehicle = getVehicleFromModel(model)
+local vehicle = getVehicleFromModel(model)
 
-    exports.ox_inventory:AddItem(xPlayer.source, 'vehicle_key', 1, { plate = plate, description = ('Type: %s  \nName: %s  \nPlate: %s'):format(vehicle.categoryLabel, vehicle.name, plate) })
+pcall(function()
+    exports.azael_vehiclekeys:AddKey(xPlayer.source, plate, ('Type: %s  \nName: %s  \nPlate: %s'):format(vehicle.categoryLabel, vehicle.name, plate))
 end)
 ```
-
-- ต้องระบุ `plate` ของยานพาหนะใน `metadata` ทุกครั้ง เมื่อมีการเพิ่มกุญแจยานพาหนะไปยังกระเป๋า (**Docs:** [ox_inventory:AddItem](https://overextended.dev/ox_inventory/Functions/Server#additem))
 
 ### ลบกุญแจเมื่อขายยานพาหนะ
 
@@ -73,11 +105,7 @@ end)
 
 ```lua
 pcall(function()
-    local slotId = exports.ox_inventory:GetSlotIdWithItem(xPlayer.source, 'vehicle_key', { plate = plate }, false)
-
-    if slotId then
-        exports.ox_inventory:RemoveItem(xPlayer.source, 'vehicle_key', 1, nil, slotId)
-    end
+    exports.azael_vehiclekeys:RemoveKey(xPlayer.source, plate, false)
 end)
 ```
 
