@@ -3,7 +3,9 @@ FiveM - Vehicle Keys (Lock System)
 
 ## ความต้องการ
 - [ox_lib](https://github.com/overextended/ox_lib)
+- [oxmysql](https://github.com/overextended/oxmysql)
 - [ox_inventory](https://github.com/overextended/ox_inventory)
+- [es_extended](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/es_extended) หรือ [qb-core](https://github.com/qbcore-framework/qb-core)
 
 ## ดาวน์โหลด
 
@@ -20,7 +22,7 @@ git clone https://github.com/Azael-Dev/azael_vehiclekeys [local]/[azael]/[system
 
 ## ติดตั้ง
 
-- สามารถตรวจสอบการกำหนดค่าเพิ่มเติมได้ที่ [shared.config.lua](https://github.com/Azael-Dev/azael_vehiclekeys/tree/main/configclient.config.lua) และ [client.config.js](https://github.com/Azael-Dev/azael_vehiclekeys/tree/main/config/client.config.lua)
+- สามารถตรวจสอบการกำหนดค่าเพิ่มเติมได้ที่ [config](https://github.com/Azael-Dev/azael_vehiclekeys/tree/main/config)
 
 ### server.cfg
 

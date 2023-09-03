@@ -3,7 +3,7 @@ game 'gta5'
 
 author 'Azael Dev <contact@azael.dev> (https://www.azael.dev/)'
 description 'Vehicle Keys (Lock System)'
-version '1.0.1'
+version '1.0.2'
 url 'https://github.com/Azael-Dev/azael_vehiclekeys'
 
 lua54 'yes'
@@ -13,6 +13,8 @@ shared_scripts {
 }
 
 server_scripts {
+    '@oxmysql/lib/MySQL.lua',
+    'config/server.config.lua',
     'source/server/main.server.lua'
 }
 
@@ -24,5 +26,6 @@ client_scripts {
 
 dependencies {
     'ox_lib',
+    'oxmysql',
     'ox_inventory'
 }
